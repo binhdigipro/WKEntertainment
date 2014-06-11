@@ -69,7 +69,7 @@ static const NSInteger NumEnemies = 6;
             enemy.column = arc4random_uniform(NumColumns);
             enemy.row = arc4random_uniform(NumRows);
             enemy.speed = arc4random_uniform(4)+1; //
-            enemy.velocity = arc4random_uniform(4); // 0 up 1 right 2 down 3 left
+            enemy.velocity = 0; // 0 up 1 right 2 down 3 left
         }
         while ([set containsObject:enemy]||([self tileAtColumn:enemy.column row:enemy.row]== nil));
         [set addObject:enemy];

@@ -17,6 +17,43 @@ static const CGFloat TileHeight = 36.0;
 static const NSInteger NumColumns = 9;
 static const NSInteger NumRows = 9;
 
+static const float ROTATE_RADIAN_PER_SEC = 4 * M_PI;
+
+// Start vector helper
+static inline CGPoint CGPointAdd(const CGPoint a, const CGPoint b)
+{
+    return CGPointMake(a.x+b.x, a.y+b.y);
+}
+
+static inline CGPoint CGPointSubtract (const CGPoint a, const CGPoint b){
+    return CGPointMake(a.x - b.x, a.y - b.y);
+}
+
+static inline CGPoint CGPointMultiplyScalar(const CGPoint a, const CGFloat b){
+    return CGPointMake(a.x*b, a.y*b);
+}
+
+static inline CGFloat CGPointLength(const CGPoint  a)
+{
+    return sqrtf(a.x*a.x + a.y*a.y);
+}
+
+static inline CGPoint CGPointNormalize(const CGPoint a){
+    CGFloat length = CGPointLength(a);
+    return CGPointMake(a.x/length, a.y/length);
+}
+
+static inline CGFloat CGPointToAngle(const CGPoint a)
+{
+    return atan2f(a.y, a.x);
+}
+
+
+static inline CGFloat ScalarSign(CGFloat a)
+{
+    return a >= 0?1:-1;
+}
+// End vector helper
 
 @interface MyScene()
 
@@ -97,7 +134,7 @@ static const NSInteger NumRows = 9;
     _lastUpdateTime = currentTime;
     
     NSSet * enemies = self.level._enemies ;
-    CGPoint _velocity = CGPointMake(0, 20);
+    CGPoint _velocity = CGPointMake(0, 0);
     //caluate velocity
     for (Enemy *enemy in  enemies) {
         if (enemy.velocity == 0) {
@@ -122,9 +159,10 @@ static const NSInteger NumRows = 9;
         
         [self moveSprite:enemy.sprite velocity:_velocity];
         [self boundsCheckPlayer:enemy];
+        [self rotateSprite:enemy.sprite toFace:CGPointNormalize(_velocity) rotateRadiansPerSec:ROTATE_RADIAN_PER_SEC];
     }
     
-    NSLog(@"%0.2f millisecond since last update", _dt*1000);
+    //NSLog(@"%0.2f millisecond since last update", _dt*1000);
     
     
 }
@@ -133,7 +171,7 @@ static const NSInteger NumRows = 9;
 - (void)moveSprite:(SKSpriteNode*)sprite velocity:(CGPoint)velocity
 {
     CGPoint amountToMove = CGPointMake(velocity.x *_dt, velocity.y*_dt);
-    NSLog(@"Amount to move: %@", NSStringFromCGPoint(amountToMove));
+    //NSLog(@"Amount to move: %@", NSStringFromCGPoint(amountToMove));
     sprite.position = CGPointMake(sprite.position.x + amountToMove.x, sprite.position.y + amountToMove.y);
 }
 // Helper function go here
@@ -145,30 +183,35 @@ static const NSInteger NumRows = 9;
 - (void) boundsCheckPlayer:(Enemy*)sprite
 {
     CGPoint newPosition = sprite.sprite.position;
+    
+    //deltaPosition is the edge of enemy base on velocity
     CGPoint deltaPosition = newPosition;
     NSInteger newVelocity = sprite.velocity;
     // Re fine position depend on velocity
+    
+    // Need switch case here. Need some i-ot here please
     if (newVelocity == 0) {
-        // Upping
-        deltaPosition.y = newPosition.y + sprite.sprite.size.height/2;
+        // Đang đi lên
+        deltaPosition.y += sprite.sprite.size.height/2;
     }
     if (newVelocity == 1) {
         // Right
-        deltaPosition.x = newPosition.x + sprite.sprite.size.width/2;
+        deltaPosition.x +=  sprite.sprite.size.width/2;
     }
     if (newVelocity == 2) {
         // Downing
-        deltaPosition.y = newPosition.y - sprite.sprite.size.height/2;
+        deltaPosition.y -= sprite.sprite.size.height/2;
     }
     if (newVelocity == 3) {
         // Left
-        deltaPosition.x = newPosition.x - sprite.sprite.size.width/2;
+        deltaPosition.x -= sprite.sprite.size.width/2;
     }
     
+    // Limit of scence
     CGPoint bottomLeft = CGPointZero;
-    
     CGPoint topRight = CGPointMake(TileWidth*NumColumns, TileHeight*NumRows);
     
+    // Detect bound of screen
     if (deltaPosition.x<= bottomLeft.x) {
         newPosition.x = bottomLeft.x + sprite.sprite.size.width/2;
         newVelocity += (sprite.velocity<=1)?2:-2;
@@ -188,13 +231,30 @@ static const NSInteger NumRows = 9;
         newVelocity += (sprite.velocity<=1)?2:-2;
     }
     
-    // also check
+    // also detect obtacle
     NSInteger column;
     NSInteger row;
     [self convertPoint:deltaPosition toColumn:&column row:&row];
     if (column< NumColumns &&column >=0 && row < NumRows && row >= 0) {
         if ([self.level tileAtColumn:column row:row] == nil) {
             newVelocity += (sprite.velocity<=1)?2:-2;
+            // We not save here, need to detect position
+            switch (sprite.velocity) {
+                case 0:
+                    newPosition.y = TileHeight*row - sprite.sprite.size.height/2;
+                    break;
+                case 1:
+                    newPosition.x = TileWidth*column - sprite.sprite.size.width/2;
+                    break;
+                case 2:
+                    newPosition.y = TileHeight*(row+1) + sprite.sprite.size.height/2;
+                    break;
+                case 3:
+                    newPosition.x = TileWidth*(column+1) + sprite.sprite.size.width/2;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -203,6 +263,31 @@ static const NSInteger NumRows = 9;
     sprite.velocity = newVelocity;
 }
 
+
+- (void)rotateSprite:(SKSpriteNode *)sprite
+              toFace:(CGPoint)velocity
+ rotateRadiansPerSec:(CGFloat)rotateRadiansPerSec
+{
+    float targetAngle = CGPointToAngle(velocity);
+    float shortest = ScalarShortestAngleBetween(sprite.zRotation, targetAngle);
+    float amtToRotate = rotateRadiansPerSec * _dt;
+    if (ABS(shortest) < amtToRotate) {
+        amtToRotate = ABS(shortest);
+    }
+    sprite.zRotation += ScalarSign(shortest) * amtToRotate;
+}
+
+static inline CGFloat ScalarShortestAngleBetween( const CGFloat a, const CGFloat b){
+    CGFloat difference  = b - a;
+    CGFloat angle = fmodf(difference, M_PI*2);
+    if (angle >= M_PI) {
+        angle -= M_PI *2;
+    }
+    else if (angle <= -M_PI){
+        angle += M_PI + 2;
+    }
+    return angle;
+}
 
 - (BOOL)convertPoint:(CGPoint)point toColumn:(NSInteger*)column row:(NSInteger*)row {
     NSParameterAssert(column);
