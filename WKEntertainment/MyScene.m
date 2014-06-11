@@ -277,14 +277,13 @@ static inline CGFloat ScalarSign(CGFloat a)
     sprite.zRotation += ScalarSign(shortest) * amtToRotate;
 }
 
-static inline CGFloat ScalarShortestAngleBetween( const CGFloat a, const CGFloat b){
-    CGFloat difference  = b - a;
-    CGFloat angle = fmodf(difference, M_PI*2);
+static inline CGFloat ScalarShortestAngleBetween(
+                                                 const CGFloat a, const CGFloat b)
+{
+    CGFloat difference = b - a;
+    CGFloat angle = fmodf(difference, M_PI * 2);
     if (angle >= M_PI) {
-        angle -= M_PI *2;
-    }
-    else if (angle <= -M_PI){
-        angle += M_PI + 2;
+        angle -= M_PI * 2;
     }
     return angle;
 }
