@@ -8,11 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "Tile.h"
+#import "Enemy.h"
+#import "Hero.h"
 @interface Level : NSObject
 
 -(instancetype)initWithFile:(NSString*)filename;
 - (Tile *)tileAtColumn:(NSInteger)column row:(NSInteger)row;
 - (void)generateEnemies;
+- (void)generateHeros;
+- (void) findingNearestEnemyForHero;
+
 @property (strong,nonatomic) NSSet *_enemies;
 
+@property (strong,nonatomic) NSSet *_heros;
 @end

@@ -1,8 +1,8 @@
 //
-//  Enermy.h
+//  Heros.h
 //  WKEntertainment
 //
-//  Created by Nguyen Binh on 6/9/14.
+//  Created by Nguyen Binh on 6/15/14.
 //  Copyright (c) 2014 ninjacoderz. All rights reserved.
 //
 
@@ -10,13 +10,16 @@
 #import "Enemy.h"
 @import SpriteKit;
 
-@interface Enemy : NSObject
+@interface Hero : NSObject
 
 @property (assign, nonatomic) NSInteger column;
 @property (assign, nonatomic) NSInteger row;
 
 @property (assign, nonatomic) NSInteger speed;
-@property (assign, nonatomic) int velocity;
+@property (assign, nonatomic) CGPoint velocity;
 
 @property (assign, nonatomic) SKSpriteNode *sprite;
+
+@property (assign, nonatomic) Enemy *enemy;
+
 @end

@@ -9,10 +9,10 @@
 #import "MyScene.h"
 #import "Level.h"
 #import "Enemy.h"
-
+#import "Hero.h"
 static const float MOVE_POINTS_PER_SEC = 30.0;
-static const CGFloat TileWidth = 32.0;
-static const CGFloat TileHeight = 36.0;
+static const CGFloat TileWidth =  32.0;
+static const CGFloat TileHeight = 32.0;
 
 static const NSInteger NumColumns = 9;
 static const NSInteger NumRows = 9;
@@ -104,17 +104,33 @@ static inline CGFloat ScalarSign(CGFloat a)
     for (NSInteger row = 0; row <NumRows; row++) {
         for (NSInteger column = 0; column < NumColumns; column++) {
             if ([self.level tileAtColumn:column row:row]!=nil) {
-                SKSpriteNode *tileNode = [SKSpriteNode spriteNodeWithImageNamed:@"Tile"];
+                // For tiles odd
+                if((row+column)%2 == 0){
+                    SKSpriteNode *tileNode = [SKSpriteNode spriteNodeWithImageNamed:@"OddTile"];
+                    tileNode.position = [self pointForColumn:column row:row];
+                    [self.tileLayer addChild:tileNode];
+                }
+                else{
+                    SKSpriteNode *tileNode = [SKSpriteNode spriteNodeWithImageNamed:@"EvenTile"];
+                    tileNode.position = [self pointForColumn:column row:row];
+                    [self.tileLayer addChild:tileNode];
+                }
+                // For tiles even
+                
+            }
+            else{
+                SKSpriteNode *tileNode = [SKSpriteNode spriteNodeWithImageNamed:@"Obstacle"];
                 tileNode.position = [self pointForColumn:column row:row];
                 [self.tileLayer addChild:tileNode];
             }
+            //obstacle
         }
     }
 }
 
 - (void)createEnemiesLayer:(NSSet *)enemies {
     for (Enemy *enemy in enemies) {
-        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"cat"];
+        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Mouse"];
         sprite.position = [self pointForColumn:enemy.column row:enemy.row];
         [self.enemyLayer addChild:sprite];
         enemy.sprite = sprite;
@@ -122,6 +138,14 @@ static inline CGFloat ScalarSign(CGFloat a)
 }
 
 
+- (void)createHerosLayer:(NSSet *)heros {
+    for (Hero *hero in heros) {
+        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Cat"];
+        sprite.position = [self pointForColumn:hero.column row:hero.row];
+        [self.enemyLayer addChild:sprite];
+        hero.sprite = sprite;
+    }
+}
 
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
@@ -158,14 +182,24 @@ static inline CGFloat ScalarSign(CGFloat a)
         }
         
         [self moveSprite:enemy.sprite velocity:_velocity];
-        [self boundsCheckPlayer:enemy];
+        [self boundsCheckEnemy:enemy];
         [self rotateSprite:enemy.sprite toFace:CGPointNormalize(_velocity) rotateRadiansPerSec:ROTATE_RADIAN_PER_SEC];
     }
     
     //NSLog(@"%0.2f millisecond since last update", _dt*1000);
     
+    // Solve Heros problems here
     
+    NSSet *heros = self.level._heros;
+    for (Hero *hero in  heros) {
+        hero.velocity = CGPointMultiplyScalar(CGPointNormalize(CGPointSubtract(hero.enemy.sprite.position, hero.sprite.position)),MOVE_POINTS_PER_SEC/2*hero.speed);
+        [self moveSprite:hero.sprite velocity:hero.velocity];
+        //[self boundsCheckHero:hero];
+        [self rotateSprite:hero.sprite toFace:CGPointNormalize(hero.velocity) rotateRadiansPerSec:ROTATE_RADIAN_PER_SEC];
+    }
 }
+
+// Need a function here boundsCheckHero:hero
 
 
 - (void)moveSprite:(SKSpriteNode*)sprite velocity:(CGPoint)velocity
@@ -174,13 +208,14 @@ static inline CGFloat ScalarSign(CGFloat a)
     //NSLog(@"Amount to move: %@", NSStringFromCGPoint(amountToMove));
     sprite.position = CGPointMake(sprite.position.x + amountToMove.x, sprite.position.y + amountToMove.y);
 }
+
 // Helper function go here
 
 - (CGPoint)pointForColumn:(NSInteger)column row:(NSInteger)row {
     return CGPointMake(column*TileWidth + TileWidth/2, row*TileHeight + TileHeight/2);
 }
 
-- (void) boundsCheckPlayer:(Enemy*)sprite
+- (void) boundsCheckEnemy:(Enemy*)sprite
 {
     CGPoint newPosition = sprite.sprite.position;
     

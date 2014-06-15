@@ -7,10 +7,20 @@
 //
 
 #import "Level.h"
-#import "Enemy.h"
 static const NSInteger NumColumns = 9;
 static const NSInteger NumRows = 9;
 static const NSInteger NumEnemies = 6;
+
+static const NSInteger NumHeros = 6;
+
+static inline CGFloat CGPointLength(const CGPoint  a)
+{
+    return sqrtf(a.x*a.x + a.y*a.y);
+}
+
+static inline CGPoint CGPointSubtract (const CGPoint a, const CGPoint b){
+    return CGPointMake(a.x - b.x, a.y - b.y);
+}
 
 @implementation Level{
     Tile *_tiles[NumColumns][NumRows];
@@ -77,5 +87,49 @@ static const NSInteger NumEnemies = 6;
     self._enemies = set;
     //NSLog(@"%")
 }
+
+- (void)generateHeros{
+    
+    // Just generate heros after have enemies
+    if (self._enemies.count == 0) {
+        return;
+    }
+    
+    NSMutableSet *set = [NSMutableSet set];
+    
+    for (int i = 0; i< NumHeros; i++) {
+        Hero *ahero = [[Hero alloc] init];
+        // Make sure no generate same enemy that not generated and so on not on the blank
+        do{
+            ahero.column = arc4random_uniform(NumColumns);
+            ahero.row = arc4random_uniform(NumRows);
+            //ahero.speed = arc4random_uniform(4)+1; // Generate speed after
+            //ahero.velocity = arc4random_uniform(4); // 0 up 1 right 2 down 3 left // Generate velocity after
+        }
+        while ([set containsObject:ahero]||([self tileAtColumn:ahero.column row:ahero.row]== nil));
+        //ahero.enemy = [self findingNearestEnemyForHero:ahero];
+        //ahero.speed = ahero.enemy.speed;
+        [set addObject:ahero];
+    }
+    self._heros = set;
+    //NSLog(@"%")
+}
+
+
+- (void) findingNearestEnemyForHero{
+    for (Hero *hero in self._heros) {
+        Enemy *findingEnemy = [self._enemies anyObject];
+        CGFloat shorest = CGPointLength(CGPointSubtract(hero.sprite.position, findingEnemy.sprite.position));
+    
+        for(Enemy *enemy in self._enemies){
+            if (CGPointLength(CGPointSubtract(hero.sprite.position, enemy.sprite.position)) < shorest) {
+                findingEnemy = enemy;
+            }
+        }
+        hero.enemy = findingEnemy;
+        hero.speed = findingEnemy.speed;
+    }
+}
+
 
 @end

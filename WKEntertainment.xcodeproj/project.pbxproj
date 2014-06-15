@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		613D4CFB194D44AE00B4F68A /* Obstacle.png in Resources */ = {isa = PBXBuildFile; fileRef = 613D4CF9194D44AE00B4F68A /* Obstacle.png */; };
+		613D4CFC194D44AE00B4F68A /* Obstacle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 613D4CFA194D44AE00B4F68A /* Obstacle@2x.png */; };
 		61E80BE01944C36700EE7C5B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E80BDF1944C36700EE7C5B /* Foundation.framework */; };
 		61E80BE21944C36700EE7C5B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E80BE11944C36700EE7C5B /* CoreGraphics.framework */; };
 		61E80BE41944C36700EE7C5B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61E80BE31944C36700EE7C5B /* UIKit.framework */; };
@@ -26,8 +28,6 @@
 		61E80C121944C36800EE7C5B /* WKEntertainmentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E80C111944C36800EE7C5B /* WKEntertainmentTests.m */; };
 		61E80C491944C4D900EE7C5B /* cat.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E80C2E1944C4D900EE7C5B /* cat.png */; };
 		61E80C4A1944C4D900EE7C5B /* cat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E80C2F1944C4D900EE7C5B /* cat@2x.png */; };
-		61E80C4B1944C4D900EE7C5B /* enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E80C301944C4D900EE7C5B /* enemy.png */; };
-		61E80C4C1944C4D900EE7C5B /* enemy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E80C311944C4D900EE7C5B /* enemy@2x.png */; };
 		61E80C4D1944C4D900EE7C5B /* zombie1.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E80C321944C4D900EE7C5B /* zombie1.png */; };
 		61E80C4E1944C4D900EE7C5B /* zombie1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E80C331944C4D900EE7C5B /* zombie1@2x.png */; };
 		61E80C4F1944C4D900EE7C5B /* zombie2.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E80C341944C4D900EE7C5B /* zombie2.png */; };
@@ -43,6 +43,15 @@
 		61E80C681944CEF600EE7C5B /* Tile.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E80C661944CEF600EE7C5B /* Tile.png */; };
 		61E80C691944CEF600EE7C5B /* Tile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E80C671944CEF600EE7C5B /* Tile@2x.png */; };
 		61E80C6C1944D8D000EE7C5B /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E80C6B1944D8D000EE7C5B /* Enemy.m */; };
+		61EF5B1E194D545A00042ACF /* EvenTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 61EF5B1A194D545A00042ACF /* EvenTile.png */; };
+		61EF5B1F194D545A00042ACF /* EvenTile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61EF5B1B194D545A00042ACF /* EvenTile@2x.png */; };
+		61EF5B20194D545A00042ACF /* OddTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 61EF5B1C194D545A00042ACF /* OddTile.png */; };
+		61EF5B21194D545A00042ACF /* OddTile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61EF5B1D194D545A00042ACF /* OddTile@2x.png */; };
+		61EF5B24194D5AA400042ACF /* Enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 61EF5B22194D5AA400042ACF /* Enemy.png */; };
+		61EF5B25194D5AA400042ACF /* Enemy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61EF5B23194D5AA400042ACF /* Enemy@2x.png */; };
+		61EF5B28194D5DE900042ACF /* Mouse.png in Resources */ = {isa = PBXBuildFile; fileRef = 61EF5B26194D5DE900042ACF /* Mouse.png */; };
+		61EF5B29194D5DE900042ACF /* Mouse@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61EF5B27194D5DE900042ACF /* Mouse@2x.png */; };
+		61EF5B2C194DF2C700042ACF /* Heros.m in Sources */ = {isa = PBXBuildFile; fileRef = 61EF5B2B194DF2C700042ACF /* Heros.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +65,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		613D4CF9194D44AE00B4F68A /* Obstacle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Obstacle.png; sourceTree = "<group>"; };
+		613D4CFA194D44AE00B4F68A /* Obstacle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Obstacle@2x.png"; sourceTree = "<group>"; };
 		61E80BDC1944C36700EE7C5B /* WKEntertainment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WKEntertainment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61E80BDF1944C36700EE7C5B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		61E80BE11944C36700EE7C5B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -81,8 +92,6 @@
 		61E80C111944C36800EE7C5B /* WKEntertainmentTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKEntertainmentTests.m; sourceTree = "<group>"; };
 		61E80C2E1944C4D900EE7C5B /* cat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cat.png; sourceTree = "<group>"; };
 		61E80C2F1944C4D900EE7C5B /* cat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cat@2x.png"; sourceTree = "<group>"; };
-		61E80C301944C4D900EE7C5B /* enemy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy.png; sourceTree = "<group>"; };
-		61E80C311944C4D900EE7C5B /* enemy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "enemy@2x.png"; sourceTree = "<group>"; };
 		61E80C321944C4D900EE7C5B /* zombie1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zombie1.png; sourceTree = "<group>"; };
 		61E80C331944C4D900EE7C5B /* zombie1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zombie1@2x.png"; sourceTree = "<group>"; };
 		61E80C341944C4D900EE7C5B /* zombie2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zombie2.png; sourceTree = "<group>"; };
@@ -101,6 +110,16 @@
 		61E80C671944CEF600EE7C5B /* Tile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tile@2x.png"; sourceTree = "<group>"; };
 		61E80C6A1944D8D000EE7C5B /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
 		61E80C6B1944D8D000EE7C5B /* Enemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Enemy.m; sourceTree = "<group>"; };
+		61EF5B1A194D545A00042ACF /* EvenTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EvenTile.png; sourceTree = "<group>"; };
+		61EF5B1B194D545A00042ACF /* EvenTile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EvenTile@2x.png"; sourceTree = "<group>"; };
+		61EF5B1C194D545A00042ACF /* OddTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OddTile.png; sourceTree = "<group>"; };
+		61EF5B1D194D545A00042ACF /* OddTile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OddTile@2x.png"; sourceTree = "<group>"; };
+		61EF5B22194D5AA400042ACF /* Enemy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Enemy.png; sourceTree = "<group>"; };
+		61EF5B23194D5AA400042ACF /* Enemy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Enemy@2x.png"; sourceTree = "<group>"; };
+		61EF5B26194D5DE900042ACF /* Mouse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mouse.png; sourceTree = "<group>"; };
+		61EF5B27194D5DE900042ACF /* Mouse@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mouse@2x.png"; sourceTree = "<group>"; };
+		61EF5B2A194DF2C700042ACF /* Hero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hero.h; sourceTree = "<group>"; };
+		61EF5B2B194DF2C700042ACF /* Heros.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Heros.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,12 +253,20 @@
 		61E80C2D1944C4D900EE7C5B /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				61EF5B26194D5DE900042ACF /* Mouse.png */,
+				61EF5B27194D5DE900042ACF /* Mouse@2x.png */,
+				61EF5B22194D5AA400042ACF /* Enemy.png */,
+				61EF5B23194D5AA400042ACF /* Enemy@2x.png */,
+				613D4CF9194D44AE00B4F68A /* Obstacle.png */,
+				613D4CFA194D44AE00B4F68A /* Obstacle@2x.png */,
 				61E80C661944CEF600EE7C5B /* Tile.png */,
 				61E80C671944CEF600EE7C5B /* Tile@2x.png */,
 				61E80C2E1944C4D900EE7C5B /* cat.png */,
 				61E80C2F1944C4D900EE7C5B /* cat@2x.png */,
-				61E80C301944C4D900EE7C5B /* enemy.png */,
-				61E80C311944C4D900EE7C5B /* enemy@2x.png */,
+				61EF5B1A194D545A00042ACF /* EvenTile.png */,
+				61EF5B1B194D545A00042ACF /* EvenTile@2x.png */,
+				61EF5B1C194D545A00042ACF /* OddTile.png */,
+				61EF5B1D194D545A00042ACF /* OddTile@2x.png */,
 				61E80C321944C4D900EE7C5B /* zombie1.png */,
 				61E80C331944C4D900EE7C5B /* zombie1@2x.png */,
 				61E80C341944C4D900EE7C5B /* zombie2.png */,
@@ -262,6 +289,8 @@
 				61E80C641944CC6F00EE7C5B /* Tile.m */,
 				61E80C6A1944D8D000EE7C5B /* Enemy.h */,
 				61E80C6B1944D8D000EE7C5B /* Enemy.m */,
+				61EF5B2A194DF2C700042ACF /* Hero.h */,
+				61EF5B2B194DF2C700042ACF /* Heros.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -369,26 +398,34 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61E80C4B1944C4D900EE7C5B /* enemy.png in Resources */,
+				613D4CFC194D44AE00B4F68A /* Obstacle@2x.png in Resources */,
+				61EF5B25194D5AA400042ACF /* Enemy@2x.png in Resources */,
 				61E80C5F1944CB9900EE7C5B /* Level_0.json in Resources */,
+				61EF5B20194D545A00042ACF /* OddTile.png in Resources */,
 				61E80C691944CEF600EE7C5B /* Tile@2x.png in Resources */,
+				61EF5B1F194D545A00042ACF /* EvenTile@2x.png in Resources */,
+				613D4CFB194D44AE00B4F68A /* Obstacle.png in Resources */,
 				61E80C541944C4D900EE7C5B /* zombie4@2x.png in Resources */,
 				61E80BEC1944C36700EE7C5B /* InfoPlist.strings in Resources */,
 				61E80C4F1944C4D900EE7C5B /* zombie2.png in Resources */,
 				61E80C491944C4D900EE7C5B /* cat.png in Resources */,
 				61E80C561944C6D900EE7C5B /* Background@2x.png in Resources */,
+				61EF5B21194D545A00042ACF /* OddTile@2x.png in Resources */,
 				61E80C501944C4D900EE7C5B /* zombie2@2x.png in Resources */,
+				61EF5B29194D5DE900042ACF /* Mouse@2x.png in Resources */,
 				61E80C4D1944C4D900EE7C5B /* zombie1.png in Resources */,
 				61E80C531944C4D900EE7C5B /* zombie4.png in Resources */,
 				61E80C681944CEF600EE7C5B /* Tile.png in Resources */,
 				61E80BFF1944C36700EE7C5B /* Images.xcassets in Resources */,
+				61EF5B28194D5DE900042ACF /* Mouse.png in Resources */,
 				61E80C4E1944C4D900EE7C5B /* zombie1@2x.png in Resources */,
 				61E80C4A1944C4D900EE7C5B /* cat@2x.png in Resources */,
+				61EF5B24194D5AA400042ACF /* Enemy.png in Resources */,
 				61E80BFD1944C36700EE7C5B /* Spaceship.png in Resources */,
 				61E80C521944C4D900EE7C5B /* zombie3@2x.png in Resources */,
 				61E80BF51944C36700EE7C5B /* Main.storyboard in Resources */,
-				61E80C4C1944C4D900EE7C5B /* enemy@2x.png in Resources */,
 				61E80C511944C4D900EE7C5B /* zombie3.png in Resources */,
+				61EF5B1E194D545A00042ACF /* EvenTile.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +447,7 @@
 				61E80C5C1944CAFD00EE7C5B /* Level.m in Sources */,
 				61E80C651944CC6F00EE7C5B /* Tile.m in Sources */,
 				61E80C6C1944D8D000EE7C5B /* Enemy.m in Sources */,
+				61EF5B2C194DF2C700042ACF /* Heros.m in Sources */,
 				61E80BFB1944C36700EE7C5B /* MyScene.m in Sources */,
 				61E80BF81944C36700EE7C5B /* ViewController.m in Sources */,
 				61E80BF21944C36700EE7C5B /* AppDelegate.m in Sources */,
@@ -620,6 +658,7 @@
 				61E80C171944C36800EE7C5B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		61E80C181944C36800EE7C5B /* Build configuration list for PBXNativeTarget "WKEntertainmentTests" */ = {
 			isa = XCConfigurationList;
@@ -628,6 +667,7 @@
 				61E80C1A1944C36800EE7C5B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

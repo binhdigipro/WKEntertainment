@@ -38,8 +38,16 @@
     
     self.scene.level = self.level;
     [self.scene createTileLayer];
+    
     [self.level generateEnemies];
     [self.scene  createEnemiesLayer:self.level._enemies];
+    
+    // Generate Heros
+    [self.level generateHeros];
+    
+    [self.scene  createHerosLayer:self.level._heros];
+    [self.level findingNearestEnemyForHero];
+    
     // Present the scene.
     [skView presentScene:self.scene];
 }
