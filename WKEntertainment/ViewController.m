@@ -48,6 +48,9 @@
     [self.scene  createHerosLayer:self.level._heros];
     [self.level findingNearestEnemyForHero];
     
+    // Generate Player
+    [self.scene createPlayerLayer];
+    
     // Present the scene.
     [skView presentScene:self.scene];
 }

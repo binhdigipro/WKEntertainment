@@ -60,12 +60,16 @@ static inline CGFloat ScalarSign(CGFloat a)
 @property (strong, nonatomic) SKNode *gameLayer;
 @property (strong, nonatomic) SKNode *enemyLayer;
 @property (strong, nonatomic) SKNode *tileLayer;
+@property (strong, nonatomic) SKNode *playerLayer;
 
 @end
 
 @implementation MyScene{
     NSTimeInterval _dt;
     NSTimeInterval _lastUpdateTime;
+    SKSpriteNode *_player;
+    CGPoint _playerVelocity;
+    CGPoint _lastTouchLocation;
 }
 
 -(id)initWithSize:(CGSize)size {    
@@ -94,6 +98,11 @@ static inline CGFloat ScalarSign(CGFloat a)
         self.enemyLayer = [SKNode node];
         self.enemyLayer.position = layerPosition;
         [self.gameLayer addChild:self.enemyLayer];
+        
+        // Add Player Layer
+        self.playerLayer = [SKNode node];
+        self.playerLayer.position = layerPosition;
+        [self.gameLayer addChild:self.playerLayer];
     }
     return self;
 }
@@ -135,6 +144,12 @@ static inline CGFloat ScalarSign(CGFloat a)
         [self.enemyLayer addChild:sprite];
         enemy.sprite = sprite;
     }
+}
+
+- (void)createPlayerLayer{
+    SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Cat"];
+    _player = sprite;
+    [self.playerLayer addChild:sprite];
 }
 
 
@@ -197,9 +212,52 @@ static inline CGFloat ScalarSign(CGFloat a)
         //[self boundsCheckHero:hero];
         [self rotateSprite:hero.sprite toFace:CGPointNormalize(hero.velocity) rotateRadiansPerSec:ROTATE_RADIAN_PER_SEC];
     }
+    
+    // moving player
+    CGPoint offset = CGPointSubtract(_lastTouchLocation, _player.position);
+    float distance = CGPointLength(offset);
+    if (distance < MOVE_POINTS_PER_SEC * _dt) {
+        _player.position = _lastTouchLocation;
+        _playerVelocity = CGPointZero;
+    } else {
+        [self moveSprite:_player velocity:_playerVelocity];
+        [self rotateSprite:_player toFace:_playerVelocity rotateRadiansPerSec:ROTATE_RADIAN_PER_SEC];
+    }
 }
 
 // Need a function here boundsCheckHero:hero
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    
+    UITouch *touch = [touches anyObject];
+    CGPoint touchLocation = [touch locationInNode:self.playerLayer];
+    
+    [self movePlayerToward:touchLocation];
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    CGPoint touchLocation = [touch locationInNode:self.playerLayer];
+    [self movePlayerToward:touchLocation];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    CGPoint touchLocation = [touch locationInNode:self.playerLayer];
+    [self movePlayerToward:touchLocation];
+}
+
+- (void)movePlayerToward:(CGPoint)location
+{
+    _lastTouchLocation = location;
+    CGPoint offset = CGPointSubtract(location, _player.position);
+    
+    CGPoint direction = CGPointNormalize(offset);
+    _playerVelocity = CGPointMultiplyScalar(direction, MOVE_POINTS_PER_SEC);
+    
+}
 
 
 - (void)moveSprite:(SKSpriteNode*)sprite velocity:(CGPoint)velocity

@@ -15,4 +15,5 @@
 -(void)createTileLayer;
 - (void)createEnemiesLayer:(NSSet *)enemies;
 - (void)createHerosLayer:(NSSet *)heros;
+- (void)createPlayerLayer;
 @end
