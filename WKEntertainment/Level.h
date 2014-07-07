@@ -17,6 +17,7 @@
 - (void)generateEnemies;
 - (void)generateHeros;
 - (void) findingNearestEnemyForHero;
+- (void) findingNearestEnemyForAHero:(Hero*)hero;
 
 @property (strong,nonatomic) NSSet *_enemies;
 

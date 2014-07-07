@@ -117,21 +117,23 @@ static inline CGPoint CGPointSubtract (const CGPoint a, const CGPoint b){
 
 
 - (void) findingNearestEnemyForHero{
-    Enemy *findingEnemy = [self._enemies anyObject];
     for (Hero *hero in self._heros) {
-        CGFloat shortest = CGPointLength(CGPointSubtract(hero.sprite.position, findingEnemy.sprite.position));
-        for(Enemy *enemy in self._enemies){
-            CGFloat distance =CGPointLength(CGPointSubtract(hero.sprite.position, enemy.sprite.position));
-            if (distance < shortest) {
-                findingEnemy = enemy;
-                shortest = distance;
-            }
-        }
-        hero.enemy = findingEnemy;
-      
-        hero.speed = findingEnemy.speed;
+        [self findingNearestEnemyForAHero:hero];
     }
 }
-
+- (void) findingNearestEnemyForAHero:(Hero*)hero
+{
+    Enemy *findingEnemy = [self._enemies anyObject];
+    CGFloat shortest = CGPointLength(CGPointSubtract(hero.sprite.position, findingEnemy.sprite.position));
+    for(Enemy *enemy in self._enemies){
+        CGFloat distance =CGPointLength(CGPointSubtract(hero.sprite.position, enemy.sprite.position));
+        if (distance < shortest) {
+            findingEnemy = enemy;
+            shortest = distance;
+        }
+    }
+    hero.enemy = findingEnemy;
+    hero.speed = findingEnemy.speed;
+}
 
 @end

@@ -130,6 +130,7 @@ static inline CGFloat ScalarSign(CGFloat a)
             else{
                 SKSpriteNode *tileNode = [SKSpriteNode spriteNodeWithImageNamed:@"Obstacle"];
                 tileNode.position = [self pointForColumn:column row:row];
+                tileNode.name = @"obstacle";
                 [self.tileLayer addChild:tileNode];
             }
             //obstacle
@@ -209,8 +210,9 @@ static inline CGFloat ScalarSign(CGFloat a)
     for (Hero *hero in  heros) {
         hero.velocity = CGPointMultiplyScalar(CGPointNormalize(CGPointSubtract(hero.enemy.sprite.position, hero.sprite.position)),MOVE_POINTS_PER_SEC/2*hero.speed);
         [self moveSprite:hero.sprite velocity:hero.velocity];
-        //[self boundsCheckHero:hero];
+        [self boundsCheckHero:hero];
         [self rotateSprite:hero.sprite toFace:CGPointNormalize(hero.velocity) rotateRadiansPerSec:ROTATE_RADIAN_PER_SEC];
+
     }
     
     // moving player
@@ -276,8 +278,10 @@ static inline CGFloat ScalarSign(CGFloat a)
 - (void) boundsCheckEnemy:(Enemy*)sprite
 {
     CGPoint newPosition = sprite.sprite.position;
-    
     //deltaPosition is the edge of enemy base on velocity
+    
+    // Manual detect colision is stupid
+    
     CGPoint deltaPosition = newPosition;
     NSInteger newVelocity = sprite.velocity;
     // Re fine position depend on velocity
@@ -356,6 +360,22 @@ static inline CGFloat ScalarSign(CGFloat a)
     sprite.velocity = newVelocity;
 }
 
+- (void) boundsCheckHero:(Hero*)hero
+{
+    //CGPoint newPosition = hero.sprite.position;
+    //CGPoint newVelocity = hero.velocity;
+    //deltaPosition is the edge of enemy base on velocity
+    //CGPoint deltaPosition = newPosition;
+    [self.tileLayer enumerateChildNodesWithName:@"obstacle" usingBlock:^(SKNode *node, BOOL *stop) {
+        //NSLog(@"hssh");
+        SKSpriteNode *obstacle = (SKSpriteNode *)node;
+        if (CGRectIntersectsRect(obstacle.frame, hero.sprite.frame)) {
+           // Thay đổi đối tượng. ( Thay đổi vector chỉ phương )
+            [self.level findingNearestEnemyForAHero:hero];
+        }
+    }];
+
+}
 
 - (void)rotateSprite:(SKSpriteNode *)sprite
               toFace:(CGPoint)velocity
